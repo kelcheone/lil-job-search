@@ -8,6 +8,11 @@
       "expo-router"
     ],
     "name": "firetut",
-    "slug": "firetut"
+    "slug": "firetut",
+    "android": {
+      "permissions": [
+        "android.permission.DETECT_SCREEN_CAPTURE"
+      ]
+    }
   }
 }
