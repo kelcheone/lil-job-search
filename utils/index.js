@@ -1,5 +1,4 @@
 export const checkImageURL = (url) => {
-  console.log(url);
   if (!url) return false;
   else {
     const pattern = new RegExp(
