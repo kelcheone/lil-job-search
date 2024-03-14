@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { RAPID_API_KEY } from "react-native-dotenv";
-
 const rapidapiKey = RAPID_API_KEY;
+
+// import from data.json
 
 const useFetch = ({ endpoint, query }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const abortController = new AbortController();
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -19,14 +21,17 @@ const useFetch = ({ endpoint, query }) => {
         "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
       },
       params: { ...query },
+      signal: abortController.signal,
     };
 
     try {
       const response = await axios.request(options);
       setData(response.data.data);
     } catch (error) {
-      setError(error);
-      alert(error);
+      if (error.name !== "AbortError") {
+        setError(error);
+        alert(error);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -34,6 +39,10 @@ const useFetch = ({ endpoint, query }) => {
 
   useEffect(() => {
     fetchData();
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   const refetch = () => {
