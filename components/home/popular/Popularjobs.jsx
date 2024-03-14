@@ -11,17 +11,15 @@ import styles from "./popularjobs.style";
 import { COLORS, SIZES } from "../../../constants";
 import PopularJobCard from "../../common/cards/popular/PopularJobCard";
 import useFetch from "../../../hooks/useFetch";
+import useFetchJson from "../../../hooks/useFetchJson";
 
 const Popularjobs = () => {
   const router = useRouter();
-  const { data, isLoading, error } = useFetch({
-    endpoint: "search",
-    query: {
-      query: "Python developer in Texas, USA",
-      page: "1",
-      num_pages: "1",
-    },
-  });
+  const { data, isLoading, error } = useFetchJson();
+
+  const handleCardPress = (item) => {
+    router.push(`/job-details/${item?.job_id}`);
+  };
 
   return (
     <View style={styles.container}>
@@ -40,10 +38,7 @@ const Popularjobs = () => {
           <FlatList
             data={data}
             renderItem={({ item }) => (
-              <PopularJobCard
-                onPress={() => router.navigate("JobDetail")}
-                item={item}
-              />
+              <PopularJobCard handleCardPress={handleCardPress} item={item} />
             )}
             key={(item) => item?.job_id}
             contentContainerStyle={{ columnGap: SIZES.medium }}

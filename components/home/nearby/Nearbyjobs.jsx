@@ -5,17 +5,11 @@ import styles from "./nearbyjobs.style";
 import { COLORS, SIZES } from "../../../constants";
 import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
 import useFetch from "../../../hooks/useFetch";
+import useFetchJson from "../../../hooks/useFetchJson";
 
 const Nearbyjobs = () => {
   const router = useRouter();
-  const { data, isLoading, error } = useFetch({
-    endpoint: "search",
-    query: {
-      query: "Python developer in Texas, USA",
-      page: "1",
-      num_pages: "1",
-    },
-  });
+  const { data, isLoading, error } = useFetchJson();
 
   return (
     <View style={styles.container}>
@@ -35,7 +29,8 @@ const Nearbyjobs = () => {
             <NearbyJobCard
               key={`nearby-job${job?.job_id}`}
               job={job}
-              handleNavigate={router.push(`/job-details/${job?.job_id}`)}
+              handleNavigate={() => router.push(`/job-details/${job?.job_id}`)}
+              // handleNavigate={router.push(`/job-details/${job?.job_id}`)}
             />
           ))
         )}
