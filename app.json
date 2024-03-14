@@ -12,7 +12,23 @@
     "android": {
       "permissions": [
         "android.permission.DETECT_SCREEN_CAPTURE"
-      ]
-    }
+      ],
+      "package": "com.kelche.firetut"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "9308bd1a-7687-4316-b26e-1244a9924fb7"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9308bd1a-7687-4316-b26e-1244a9924fb7"
+    },
+    "ios": {}
   }
 }
